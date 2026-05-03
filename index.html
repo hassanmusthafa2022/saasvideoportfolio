@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hassan Musthafa — Motion Graphics & SaaS Video</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07050f;--bg2:#0d0a1a;--bg3:#130f22;
+  --glass:rgba(255,255,255,0.04);--glass-b:rgba(255,255,255,0.1);
+  --accent:#a78bfa;--accent2:#22d3ee;--accent3:#f472b6;
+  --text:#f0eeff;--muted:#8b83a3;
+  --fd:'Syne',sans-serif;--fm:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fd);overflow-x:hidden;cursor:none}
+
+/* cursor */
+#cur{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur-r{width:32px;height:32px;border:1px solid rgba(167,139,250,0.35);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease}
+
+/* bg orbs */
+.bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);animation:orbF linear infinite}
+.orb1{width:600px;height:600px;background:rgba(124,58,237,0.12);top:-150px;right:-100px;animation-duration:28s}
+.orb2{width:400px;height:400px;background:rgba(34,211,238,0.07);bottom:5%;left:-80px;animation-duration:32s;animation-delay:-12s}
+.orb3{width:280px;height:280px;background:rgba(244,114,182,0.07);top:45%;right:15%;animation-duration:22s;animation-delay:-6s}
+@keyframes orbF{0%{transform:translate(0,0) scale(1)}33%{transform:translate(28px,-38px) scale(1.05)}66%{transform:translate(-18px,22px) scale(.96)}100%{transform:translate(0,0) scale(1)}}
+
+.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(167,139,250,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,.022) 1px,transparent 1px);
+  background-size:80px 80px;animation:gd 40s linear infinite}
+@keyframes gd{0%{background-position:0 0}100%{background-position:80px 80px}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.4rem 4rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--glass-b);background:rgba(7,5,15,.75);backdrop-filter:blur(20px)}
+.logo{font-size:.95rem;font-weight:800;letter-spacing:.1em;color:var(--text);text-decoration:none}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:var(--fm);font-size:.73rem;color:var(--muted);text-decoration:none;letter-spacing:.08em;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-btn{font-family:var(--fm);font-size:.73rem;padding:.55rem 1.4rem;border:1px solid var(--accent);color:var(--accent);text-decoration:none;letter-spacing:.08em;transition:all .25s;position:relative;overflow:hidden;z-index:1}
+.nav-btn::before{content:'';position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .25s;z-index:-1}
+.nav-btn:hover{color:var(--bg)}.nav-btn:hover::before{transform:scaleX(1)}
+
+/* ===================== HERO VIDEO REEL ===================== */
+#hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+
+/* Big background video — cycles through all 4 */
+#hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.35}
+
+/* dark gradient over the video so text is readable */
+.hero-veil{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to bottom,rgba(7,5,15,.75) 0%,rgba(7,5,15,.35) 45%,rgba(7,5,15,.9) 100%)}
+
+/* hero text sits above everything — 5rem top padding clears the fixed navbar */
+.hero-content{position:relative;z-index:3;padding:6rem 4rem 5rem}
+.hero-tag{font-family:var(--fm);font-size:.72rem;color:var(--accent2);letter-spacing:.2em;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fu .8s ease forwards .3s}
+.hero-tag::before{content:'';width:28px;height:1px;background:var(--accent2)}
+.hero-h1{font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;line-height:.95;letter-spacing:-.025em;margin-bottom:1.2rem;max-width:800px}
+.l1{display:block;opacity:0;animation:fu .9s ease forwards .5s}
+.l2{display:block;opacity:0;animation:fu .9s ease forwards .7s;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.l3{display:block;opacity:0;animation:fu .9s ease forwards .9s}
+.hero-sub{font-family:var(--fm);font-size:.85rem;color:rgba(240,238,255,.65);line-height:1.75;max-width:420px;margin-bottom:2.5rem;opacity:0;animation:fu .9s ease forwards 1.1s}
+.hero-ctas{display:flex;gap:1rem;opacity:0;animation:fu .9s ease forwards 1.3s;flex-wrap:wrap}
+.btn-p{padding:.8rem 2rem;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;font-family:var(--fm);font-size:.76rem;letter-spacing:.08em;text-decoration:none;transition:opacity .2s,transform .2s}
+.btn-p:hover{opacity:.85;transform:translateY(-2px)}
+.btn-s{padding:.8rem 2rem;border:1px solid var(--glass-b);color:rgba(240,238,255,.7);font-family:var(--fm);font-size:.76rem;letter-spacing:.08em;text-decoration:none;background:rgba(255,255,255,.04);backdrop-filter:blur(8px);transition:all .2s}
+.btn-s:hover{border-color:var(--accent);color:var(--accent)}
+
+/* video switcher dots */
+.vid-dots{position:absolute;bottom:2rem;right:4rem;z-index:4;display:flex;gap:.6rem;align-items:center}
+.vdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);cursor:none;transition:all .3s}
+.vdot.active{background:var(--accent);width:20px;border-radius:3px}
+
+/* scroll cue */
+.scroll-i{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fu 1s ease forwards 2s}
+.scroll-i span{font-family:var(--fm);font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.18em}
+.scroll-l{width:1px;height:36px;background:linear-gradient(var(--accent),transparent);animation:sp 2s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===================== WORK SECTION — video cards ===================== */
+#work{position:relative;z-index:2;background:var(--bg2);padding:5rem 4rem}
+.s-tag{font-family:var(--fm);font-size:.68rem;color:var(--accent);letter-spacing:.2em;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.s-tag::before{content:'';width:20px;height:1px;background:var(--accent)}
+.s-h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:.75rem}
+.s-sub{font-family:var(--fm);font-size:.83rem;color:var(--muted);line-height:1.7;max-width:480px;margin-bottom:3rem}
+
+/* 2-column grid, first card full width */
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--glass-b)}
+
+.wi{position:relative;overflow:hidden;background:var(--bg3);cursor:none}
+.wi.featured{grid-column:span 2;aspect-ratio:21/9}
+.wi.half{aspect-ratio:16/9}
+
+/* the actual video inside each card */
+.wi video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.wi:hover video{transform:scale(1.03)}
+
+/* hover overlay */
+.wo{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,5,15,.96) 0%,rgba(7,5,15,.15) 55%,transparent 100%);opacity:0;transition:opacity .35s;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;pointer-events:none}
+.wi:hover .wo{opacity:1}
+.wcat{font-family:var(--fm);font-size:.62rem;color:var(--accent2);letter-spacing:.14em;margin-bottom:.4rem}
+.wtitle{font-size:1.05rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.3rem}
+.wdesc{font-family:var(--fm);font-size:.7rem;color:var(--muted);line-height:1.5}
+
+/* play button that shows on hover */
+.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:all .3s;backdrop-filter:blur(6px);background:rgba(255,255,255,.08)}
+.play-btn::after{content:'';width:0;height:0;border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff;margin-left:3px}
+.wi:hover .play-btn{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+/* YouTube iframe cards */
+.wi.yt-card iframe{width:100%;height:100%;border:none;display:block;pointer-events:none;transition:transform .5s ease}
+.wi.yt-card:hover iframe{transform:scale(1.03)}
+.wi.yt-card.active iframe{pointer-events:auto}
+.wi.yt-card .yt-click{position:absolute;inset:0;z-index:3}
+.wi.yt-card.active .yt-click{display:none}
+.yt-badge{position:absolute;top:1rem;right:1rem;font-family:var(--fm);font-size:.6rem;color:rgba(255,255,255,.5);letter-spacing:.1em;z-index:4;background:rgba(0,0,0,.4);padding:.25rem .6rem;border-radius:3px;pointer-events:none}
+
+/* click to play/pause */
+.wi.playing video{cursor:none}
+
+/* ===================== MARQUEE ===================== */
+.marquee-w{overflow:hidden;border-top:1px solid var(--glass-b);border-bottom:1px solid var(--glass-b);padding:.9rem 0;background:var(--bg3);position:relative;z-index:2}
+.marquee-t{display:flex;gap:4rem;animation:mq 20s linear infinite;width:max-content}
+.marquee-i{font-family:var(--fm);font-size:.7rem;color:var(--muted);letter-spacing:.12em;white-space:nowrap;display:flex;align-items:center;gap:.75rem}
+.marquee-i::after{content:'·';color:var(--accent)}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ===================== ABOUT ===================== */
+section.sec{position:relative;z-index:2;padding:6rem 4rem}
+#about{background:var(--bg)}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.at p{font-family:var(--fm);font-size:.85rem;color:var(--muted);line-height:1.8;margin-bottom:1.2rem}
+.at p strong{color:var(--text);font-weight:400}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.stag{font-family:var(--fm);font-size:.7rem;padding:.6rem 1rem;border:1px solid var(--glass-b);color:var(--muted);letter-spacing:.06em;background:var(--glass);backdrop-filter:blur(6px);transition:all .2s}
+.stag:hover{border-color:var(--accent);color:var(--accent)}
+.stag.hi{border-color:rgba(167,139,250,.3);color:var(--accent)}
+
+/* ===================== SERVICES ===================== */
+#services{background:var(--bg2)}
+.svgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--glass-b)}
+.svc{background:var(--bg2);padding:2.5rem;transition:background .3s}
+.svc:hover{background:var(--bg3)}
+.svnum{font-family:var(--fm);font-size:.63rem;color:var(--accent);letter-spacing:.14em;margin-bottom:1.5rem}
+.svico{width:38px;height:38px;border:1px solid var(--glass-b);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;font-size:1rem}
+.svtitle{font-size:1rem;font-weight:700;margin-bottom:.7rem;letter-spacing:-.01em}
+.svdesc{font-family:var(--fm);font-size:.73rem;color:var(--muted);line-height:1.7}
+.svprice{font-family:var(--fm);font-size:.7rem;color:var(--accent2);margin-top:1.5rem;letter-spacing:.05em}
+
+/* ===================== PROCESS ===================== */
+#process{background:var(--bg)}
+.psteps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.psteps::before{content:'';position:absolute;top:1.7rem;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,var(--glass-b),var(--glass-b),transparent)}
+.pstep{padding:0 1.5rem;text-align:center}
+.pcirc{width:52px;height:52px;border:1px solid var(--glass-b);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:var(--fm);font-size:.68rem;color:var(--accent);background:var(--bg);position:relative;z-index:1}
+.ptitle{font-size:.9rem;font-weight:700;margin-bottom:.5rem}
+.pdesc{font-family:var(--fm);font-size:.72rem;color:var(--muted);line-height:1.6}
+
+/* ===================== CONTACT ===================== */
+#contact{background:var(--bg2);text-align:center;padding:8rem 4rem}
+.ci{max-width:600px;margin:0 auto}
+.ch2{font-size:clamp(2rem,5vw,4rem);font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:1rem}
+.ch2 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.csub{font-family:var(--fm);font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:3rem}
+.clinks{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.cl{font-family:var(--fm);font-size:.76rem;padding:.85rem 1.8rem;border:1px solid var(--glass-b);color:var(--muted);text-decoration:none;letter-spacing:.08em;background:var(--glass);backdrop-filter:blur(8px);transition:all .25s}
+.cl:hover{border-color:var(--accent);color:var(--accent)}
+.cl.p{border-color:var(--accent);color:var(--accent)}
+.cl.p:hover{background:var(--accent);color:var(--bg)}
+
+footer{position:relative;z-index:2;padding:2rem 4rem;border-top:1px solid var(--glass-b);display:flex;align-items:center;justify-content:space-between}
+.fcopy{font-family:var(--fm);font-size:.67rem;color:var(--muted);letter-spacing:.05em}
+.fback{font-family:var(--fm);font-size:.67rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.fback:hover{color:var(--accent)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.v{opacity:1;transform:translateY(0)}
+
+/* stats row */
+.hero-stats{display:flex;gap:3rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,.08);opacity:0;animation:fu .9s ease forwards 1.5s}
+.snum{font-size:1.8rem;font-weight:800;letter-spacing:-.03em}
+.snum span{color:var(--accent);font-size:1.1rem}
+.slbl{font-family:var(--fm);font-size:.65rem;color:rgba(255,255,255,.35);letter-spacing:.1em;margin-top:.2rem}
+
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem}.nav-links{display:none}
+  .hero-content{padding:6rem 1.5rem 4rem}
+  #work{padding:4rem 1.5rem}
+  section.sec{padding:5rem 1.5rem}
+  #contact{padding:5rem 1.5rem}
+  footer{padding:1.5rem}
+  .work-grid{grid-template-columns:1fr}
+  .wi.featured{grid-column:span 1;aspect-ratio:16/9}
+  .ag,.svgrid,.psteps{grid-template-columns:1fr}
+  .psteps::before{display:none}
+  .hero-stats{gap:1.5rem;flex-wrap:wrap}
+  .vid-dots{right:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">HM<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-btn">Hire me</a>
+</nav>
+
+<!-- ===== HERO — full screen video reel ===== -->
+<section id="hero">
+  <!-- background cycles through local videos silently -->
+  <video id="hero-bg-video" autoplay muted playsinline loop>
+    <source src="projectfolder.mp4" type="video/mp4">
+  </video>
+  <div class="hero-veil"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Available for freelance — remote worldwide</div>
+    <h1 class="hero-h1">
+      <span class="l1">Motion Graphics</span>
+      <span class="l2">&amp; SaaS Video</span>
+      <span class="l3">Specialist</span>
+    </h1>
+    <p class="hero-sub">DaVinci Resolve · Glassmorphism UI · Explainer Videos · YouTube Production. I turn complex products into videos people actually watch.</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-p">Watch my work ↓</a>
+      <a href="#contact" class="btn-s">Hire me on Upwork</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="snum">4<span>+</span></div><div class="slbl">SAAS VIDEOS</div></div>
+      <div><div class="snum">3<span>+</span></div><div class="slbl">YOUTUBE CHANNELS</div></div>
+      <div><div class="snum">2<span>yr</span></div><div class="slbl">EXPERIENCE</div></div>
+      <div><div class="snum">4</div><div class="slbl">LANGUAGES</div></div>
+    </div>
+  </div>
+
+  <!-- video switcher dots -->
+  <div class="vid-dots">
+    <div class="vdot active" onclick="switchVid(0)"></div>
+    <div class="vdot" onclick="switchVid(1)"></div>
+    <div class="vdot" onclick="switchVid(2)"></div>
+    <div class="vdot" onclick="switchVid(3)"></div>
+  </div>
+
+  <div class="scroll-i">
+    <span>SCROLL TO SEE ALL WORK</span>
+    <div class="scroll-l"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-w">
+  <div class="marquee-t">
+    <span class="marquee-i">DaVinci Resolve</span><span class="marquee-i">Motion Graphics</span><span class="marquee-i">SaaS Explainer Videos</span><span class="marquee-i">Glassmorphism UI</span><span class="marquee-i">YouTube Production</span><span class="marquee-i">Color Grading</span><span class="marquee-i">Adobe Photoshop</span><span class="marquee-i">CapCut Advanced</span><span class="marquee-i">Social Media Content</span>
+    <span class="marquee-i">DaVinci Resolve</span><span class="marquee-i">Motion Graphics</span><span class="marquee-i">SaaS Explainer Videos</span><span class="marquee-i">Glassmorphism UI</span><span class="marquee-i">YouTube Production</span><span class="marquee-i">Color Grading</span><span class="marquee-i">Adobe Photoshop</span><span class="marquee-i">CapCut Advanced</span><span class="marquee-i">Social Media Content</span>
+  </div>
+</div>
+
+<!-- ===== WORK — all 4 videos as clickable cards ===== -->
+<section id="work">
+  <div class="s-tag">Selected work</div>
+  <h2 class="s-h2 reveal">All 4 SaaS Videos</h2>
+  <p class="s-sub reveal">Click any video to play. Hover to preview details.</p>
+
+  <div class="work-grid reveal">
+
+    <!-- 1. ONTHEWAY — featured (full width) -->
+    <div class="wi featured" id="card0" onclick="togglePlay(0)">
+      <video muted playsinline loop preload="metadata">
+        <source src="ontheway.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn"></div>
+      <div class="wo">
+        <div class="wcat">SaaS · Explainer · Teal Glassmorphism</div>
+        <div class="wtitle">ONTHEWAY — Rideshare App Explainer</div>
+        <div class="wdesc">Driver &amp; passenger benefit cards · Icon animation · DaVinci Resolve color grade</div>
+      </div>
+    </div>
+
+    <!-- 2. Meetflow -->
+    <div class="wi half" id="card1" onclick="togglePlay(1)">
+      <video muted playsinline loop preload="metadata">
+        <source src="Meetflow.mkv" type="video/x-matroska">
+        <source src="Meetflow.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn"></div>
+      <div class="wo">
+        <div class="wcat">SaaS · Screen Motion · Minimal</div>
+        <div class="wtitle">Meetflow — Calendar Booking Demo</div>
+        <div class="wdesc">Clean UI walkthrough · Typography animation · Light palette</div>
+      </div>
+    </div>
+
+    <!-- 3. Project Folder -->
+    <div class="wi half" id="card2" onclick="togglePlay(2)">
+      <video muted playsinline loop preload="metadata">
+        <source src="projectfolder.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn"></div>
+      <div class="wo">
+        <div class="wcat">SaaS · UI Animation · Purple</div>
+        <div class="wtitle">Project Folder — File Upload UI</div>
+        <div class="wdesc">Glassmorphism modal · Particle background · Progress animation</div>
+      </div>
+    </div>
+
+    <!-- 4. TTS4.5 — full width bottom -->
+    <div class="wi featured" id="card3" onclick="togglePlay(3)">
+      <video muted playsinline loop preload="metadata">
+        <source src="tts.mov" type="video/quicktime">
+        <source src="tts.mp4" type="video/mp4">
+      </video>
+      <div class="play-btn"></div>
+      <div class="wo">
+        <div class="wcat">SaaS · Motion Graphics · 3D Objects</div>
+        <div class="wtitle">TTS4.5 — Product Promo</div>
+        <div class="wdesc">Glassmorphism cards · 3D pill objects · Ribbon animation · Purple depth</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="ag">
+    <div class="at">
+      <div class="s-tag">About me</div>
+      <h2 class="s-h2 reveal">I make SaaS products<br>look alive.</h2>
+      <p class="reveal">I'm <strong>Hassan Musthafa</strong> — a motion graphics editor and SaaS video specialist from Sri Lanka, working remotely with clients worldwide.</p>
+      <p class="reveal">I use <strong>DaVinci Resolve</strong> to build cinematic product videos — glassmorphism UI animations, explainer videos, YouTube content, and social graphics that make complex products feel simple and desirable.</p>
+      <p class="reveal">I also teach Photoshop &amp; ICT, speak 4 languages (Arabic, English, Tamil, Sinhala), and founded <strong>Innovibyte</strong>. I understand SaaS from the inside — as a developer and a storyteller.</p>
+    </div>
+    <div class="reveal">
+      <div style="font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.1em;margin-bottom:1.2rem">SKILLS &amp; TOOLS</div>
+      <div class="sg">
+        <div class="stag hi">DaVinci Resolve</div><div class="stag hi">Motion Graphics</div>
+        <div class="stag hi">Glassmorphism UI</div><div class="stag hi">SaaS Video</div>
+        <div class="stag">Adobe Photoshop</div><div class="stag">CapCut Advanced</div>
+        <div class="stag">Color Grading</div><div class="stag">YouTube Production</div>
+        <div class="stag">Thumbnail Design</div><div class="stag">Social Media</div>
+        <div class="stag">Arabic · English</div><div class="stag">Node.js · React</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="services">
+  <div class="s-tag">What I offer</div>
+  <h2 class="s-h2 reveal">Services</h2>
+  <p class="s-sub reveal">Clean deliverables. Fast turnaround. No drama.</p>
+  <div class="svgrid reveal">
+    <div class="svc">
+      <div class="svnum">01</div><div class="svico">▶</div>
+      <div class="svtitle">SaaS Explainer Video</div>
+      <div class="svdesc">60–120 sec product demo with motion graphics, UI animations, and voiceover-ready edit. Perfect for landing pages and product launches.</div>
+      <div class="svprice">From $150 / video</div>
+    </div>
+    <div class="svc">
+      <div class="svnum">02</div><div class="svico">◈</div>
+      <div class="svtitle">YouTube Channel Package</div>
+      <div class="svdesc">Monthly retainer — long-form editing, Shorts, thumbnails, animated intros. Built for Arabic and English channels.</div>
+      <div class="svprice">From $400 / month</div>
+    </div>
+    <div class="svc">
+      <div class="svnum">03</div><div class="svico">◻</div>
+      <div class="svtitle">Motion Graphics Pack</div>
+      <div class="svdesc">Animated lower thirds, logo reveals, transitions, UI mockup animations. Delivered as DaVinci Resolve project or MP4.</div>
+      <div class="svprice">From $80 / pack</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec" id="process">
+  <div class="s-tag">How it works</div>
+  <h2 class="s-h2 reveal" style="text-align:center">Simple process</h2>
+  <p class="s-sub reveal" style="text-align:center;margin:0 auto 3.5rem">From brief to delivery in days, not weeks.</p>
+  <div class="psteps reveal">
+    <div class="pstep"><div class="pcirc">01</div><div class="ptitle">Brief</div><div class="pdesc">Share your product, goal, and references. 15-min call or written brief.</div></div>
+    <div class="pstep"><div class="pcirc">02</div><div class="ptitle">Script &amp; storyboard</div><div class="pdesc">I map the narrative and visual flow before touching the timeline.</div></div>
+    <div class="pstep"><div class="pcirc">03</div><div class="ptitle">Production</div><div class="pdesc">Motion graphics, color grade, sound design — full DaVinci Resolve post.</div></div>
+    <div class="pstep"><div class="pcirc">04</div><div class="ptitle">Delivery</div><div class="pdesc">MP4 + project file. One free revision included on every project.</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="ci">
+    <div class="s-tag" style="justify-content:center">Get in touch</div>
+    <h2 class="ch2 reveal">Ready to make<br>something <span>great?</span></h2>
+    <p class="csub reveal">Available for Upwork contracts, direct projects, and retainers. Response within 24 hours.</p>
+    <div class="clinks reveal">
+      <a href="mailto:itkcartoons@gmail.com" class="cl p">itkcartoons@gmail.com</a>
+      <a href="https://linkedin.com/in/hassanmusthafa" class="cl">LinkedIn</a>
+      <a href="https://upwork.com" class="cl">Upwork Profile</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="fcopy">© 2025 Hassan Musthafa — Motion Graphics &amp; SaaS Video</span>
+  <a href="#hero" class="fback">Back to top ↑</a>
+</footer>
+
+<script>
+/* ---- cursor ---- */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(anim)})();
+
+/* ---- hero bg video cycles every 8s ---- */
+const heroVids=[
+  {src:'ontheway.mp4',type:'video/mp4'},
+  {src:'Meetflow.mkv',type:'video/x-matroska'},
+  {src:'projectfolder.mp4',type:'video/mp4'},
+  {src:'tts.mov',type:'video/quicktime'}
+];
+const heroBg=document.getElementById('hero-bg-video');
+const dots=document.querySelectorAll('.vdot');
+let curVid=0,heroTimer=null;
+
+function switchVid(idx){
+  curVid=idx;
+  heroBg.src=heroVids[idx].src;
+  heroBg.play();
+  dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+  clearTimeout(heroTimer);
+  heroTimer=setTimeout(nextVid,8000);
+}
+function nextVid(){switchVid((curVid+1)%heroVids.length)}
+heroTimer=setTimeout(nextVid,8000);
+dots.forEach((d,i)=>d.addEventListener('click',()=>switchVid(i)));
+
+/* ---- work cards: click to play/pause ---- */
+const cards=document.querySelectorAll('.wi[id^="card"]');
+function togglePlay(idx){
+  const vid=cards[idx].querySelector('video');
+  const btn=cards[idx].querySelector('.play-btn');
+  if(vid.paused){
+    // pause all others first
+    cards.forEach((c,i)=>{if(i!==idx){const v=c.querySelector('video');if(!v.paused)v.pause()}});
+    vid.play();
+    btn.style.opacity='0';
+  } else {
+    vid.pause();
+    btn.style.opacity='';
+  }
+}
+
+/* ---- scroll reveal ---- */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)}
+}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ---- autoplay work videos when scrolled into view ---- */
+const vidObs=new IntersectionObserver(es=>es.forEach(e=>{
+  const v=e.target.querySelector('video');
+  if(!v)return;
+  if(e.isIntersecting){v.play().catch(()=>{})}
+  else{v.pause()}
+}),{threshold:.4});
+cards.forEach(c=>vidObs.observe(c));
+</script>
+</body>
+</html>
